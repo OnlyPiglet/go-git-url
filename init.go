@@ -7,6 +7,7 @@ import (
 
 	azureparserv1 "github.com/kubescape/go-git-url/azureparser/v1"
 	bitbucketparserv1 "github.com/kubescape/go-git-url/bitbucketparser/v1"
+	giteeparserv1 "github.com/kubescape/go-git-url/giteeparser/v1"
 	githubparserv1 "github.com/kubescape/go-git-url/githubparser/v1"
 	gitlabparserv1 "github.com/kubescape/go-git-url/gitlabparser/v1"
 )
@@ -30,6 +31,10 @@ func NewGitURL(fullURL string) (IGitURL, error) {
 	if gitlabparserv1.IsHostGitLab(hostUrl) {
 		return gitlabparserv1.NewGitLabParserWithURL(hostUrl, fullURL)
 	}
+	if giteeparserv1.IsHostGitee(hostUrl) {
+		return giteeparserv1.NewGitLabParserWithURL(hostUrl, fullURL)
+	}
+
 	return nil, fmt.Errorf("repository host '%s' not supported", hostUrl)
 }
 
